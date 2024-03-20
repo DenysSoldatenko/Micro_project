@@ -1,1 +1,3 @@
 rootProject.name = 'Micro_project'
+
+includeBuild('customer-service')
