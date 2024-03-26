@@ -1,5 +1,6 @@
 package com.example.customerservice.controllers;
 
+import com.example.customerservice.dtos.RegistrationRequest;
 import com.example.customerservice.services.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,8 @@ public class CustomerController {
   private final CustomerService customerService;
 
   @PostMapping
-  public void registerCustomer(@RequestBody String customerRegistrationRequest) {
-    log.info("Received request to register new customer: {}", customerRegistrationRequest);
-    customerService.registerCustomer(customerRegistrationRequest);
+  public void registerCustomer(@RequestBody RegistrationRequest request) {
+    log.info("Received request to register new customer: {}", request);
+    customerService.registerCustomer(request);
   }
 }
