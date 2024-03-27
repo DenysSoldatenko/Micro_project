@@ -1,6 +1,6 @@
 package com.example.customerservice.dtos;
 
-public record RegistrationRequest(
+public record CustomerDto(
   String firstName,
   String lastName,
   String email

@@ -25,9 +25,11 @@ dependencies {
 
 	implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${springStarterCloudVersion}"
 
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 }
 
 dependencyManagement {
