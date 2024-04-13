@@ -1,5 +1,7 @@
 package com.example.fraudservice.services;
 
+import com.example.fraudservice.dtos.FraudCheckResponse;
+
 public interface FraudCheckHistoryService {
-  void isFraudulentCustomer(Integer customerId);
+  FraudCheckResponse isFraudulentCustomer(Integer customerId);
 }
