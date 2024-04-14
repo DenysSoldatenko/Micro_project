@@ -17,7 +17,7 @@ public class FraudCheckHistoryServiceImpl implements FraudCheckHistoryService {
   private final FraudCheckHistoryRepository fraudCheckHistoryRepository;
 
   @Override
-  public FraudCheckResponse isFraudulentCustomer(Integer customerId) {
+  public FraudCheckResponse checkFraudStatus(Integer customerId) {
     FraudCheckHistory fraudCheckHistory = createFraudCheckHistory(customerId);
     fraudCheckHistoryRepository.save(fraudCheckHistory);
     return fraudCheckHistoryMapper.toDto(fraudCheckHistory);
