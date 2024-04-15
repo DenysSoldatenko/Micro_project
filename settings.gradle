@@ -2,3 +2,5 @@ rootProject.name = 'Micro_project'
 
 includeBuild('customer-service')
 includeBuild('fraud-service')
+
+includeBuild('eureka-server')
