@@ -1,6 +1,6 @@
 package com.example.fraudservice.mappers;
 
-import com.example.fraudservice.dtos.FraudCheckResponse;
+import com.example.feignservice.fraud.FraudCheckResponse;
 import com.example.fraudservice.entities.FraudCheckHistory;
 import org.mapstruct.Mapper;
 

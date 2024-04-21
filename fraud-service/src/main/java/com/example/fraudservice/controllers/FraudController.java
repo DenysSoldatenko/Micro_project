@@ -1,6 +1,6 @@
 package com.example.fraudservice.controllers;
 
-import com.example.fraudservice.dtos.FraudCheckResponse;
+import com.example.feignservice.fraud.FraudCheckResponse;
 import com.example.fraudservice.services.FraudCheckHistoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 @UtilityClass
 public class FraudCheckHistoryUtil {
 
-  public static FraudCheckHistory createFraudCheckHistory(Integer customerId) {
+  public static FraudCheckHistory createFraudCheckHistory(Integer customerId, boolean isFraudster) {
     return FraudCheckHistory.builder()
       .customerId(customerId)
-      .isFraudster(false)
+      .isFraudster(isFraudster)
       .createdAt(LocalDateTime.now())
       .build();
   }
