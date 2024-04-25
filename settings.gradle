@@ -1,7 +1,8 @@
 rootProject.name = 'Micro_project'
 
-includeBuild('customer-service')
+includeBuild('service-customer')
 includeBuild('service-feign')
 includeBuild('service-fraud')
-includeBuild('eureka-server')
 includeBuild('service-notification')
+
+includeBuild('eureka-server')
