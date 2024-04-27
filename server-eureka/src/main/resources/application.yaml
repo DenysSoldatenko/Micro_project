@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: eureka-server
+    name: server-eureka
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt

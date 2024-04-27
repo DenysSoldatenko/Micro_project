@@ -3,12 +3,12 @@ server:
 
 spring:
   application:
-    name: customer-service
+    name: service-customer
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt
   config:
-    import: optional:file:customer-service/.env[.properties]
+    import: optional:file:service-customer/.env[.properties]
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST}:5432/${DATABASE_NAME}?currentSchema=${DATABASE_SCHEMA}
     username: ${DATABASE_USERNAME}

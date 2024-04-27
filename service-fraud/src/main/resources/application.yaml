@@ -8,7 +8,7 @@ spring:
   banner:
     location: application-banner.txt
   config:
-    import: optional:file:customer-service/.env[.properties]
+    import: optional:file:service-fraud/.env[.properties]
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST}:5432/${DATABASE_NAME}?currentSchema=${DATABASE_SCHEMA}
     username: ${DATABASE_USERNAME}
