@@ -1,6 +1,12 @@
 server:
   port: 8082
 
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
 spring:
   application:
     name: service-fraud
@@ -22,6 +28,8 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
+  zipkin:
+    base-url: http://localhost:9411
 
 eureka:
   client:
