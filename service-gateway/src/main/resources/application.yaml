@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: 8080
 
 management:
   tracing:
@@ -9,17 +9,14 @@ management:
 
 spring:
   application:
-    name: server-eureka
+    name: service-gateway
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
-
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
