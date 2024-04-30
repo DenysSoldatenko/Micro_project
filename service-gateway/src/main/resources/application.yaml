@@ -13,7 +13,13 @@ spring:
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt
-
+  cloud:
+    gateway:
+      routes:
+        - id: service-customer
+          uri: lb://SERVICE-CUSTOMER
+          predicates:
+            - Path=/api/v1/customer/**
 eureka:
   client:
     service-url:
