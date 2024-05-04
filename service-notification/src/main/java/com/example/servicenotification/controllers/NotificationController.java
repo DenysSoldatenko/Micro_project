@@ -1,6 +1,6 @@
 package com.example.servicenotification.controllers;
 
-import com.example.feignservice.notification.NotificationRequest;
+import org.example.feignservice.notification.NotificationRequest;
 import com.example.servicenotification.services.NotificationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

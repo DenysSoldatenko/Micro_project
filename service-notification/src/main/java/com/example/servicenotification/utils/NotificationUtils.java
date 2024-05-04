@@ -1,6 +1,6 @@
 package com.example.servicenotification.utils;
 
-import com.example.feignservice.notification.NotificationRequest;
+import org.example.feignservice.notification.NotificationRequest;
 import com.example.servicenotification.entities.Notification;
 import lombok.experimental.UtilityClass;
 

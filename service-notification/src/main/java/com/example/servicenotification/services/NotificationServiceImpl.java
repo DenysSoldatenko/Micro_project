@@ -2,7 +2,7 @@ package com.example.servicenotification.services;
 
 import static com.example.servicenotification.utils.NotificationUtils.createNotificationFromRequest;
 
-import com.example.feignservice.notification.NotificationRequest;
+import org.example.feignservice.notification.NotificationRequest;
 import com.example.servicenotification.entities.Notification;
 import com.example.servicenotification.repositories.NotificationRepository;
 import lombok.AllArgsConstructor;
