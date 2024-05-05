@@ -6,6 +6,9 @@ management:
     enabled: true
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://${ZIPKIN_HOST}:9411/api/v2/spans
 
 spring:
   application:
@@ -13,6 +16,8 @@ spring:
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt
+  config:
+    import: optional:file:server-eureka/.env[.properties]
 
 eureka:
   client:

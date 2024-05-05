@@ -1,0 +1,162 @@
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+services:
+  server-eureka:
+    build: ./server-eureka
+    container_name: server-eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+    depends_on:
+      - zipkin
+    environment:
+      ZIPKIN_HOST: ${ZIPKIN_HOST}
+
+  service-customer:
+    build: ./service-customer
+    container_name: service-customer
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    env_file:
+      - .env
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+      - server-eureka
+    environment:
+      EUREKA_HOST: ${EUREKA_HOST}
+      ZIPKIN_HOST: ${ZIPKIN_HOST}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      DATABASE_HOST: ${DATASOURCE_HOST}
+      DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
+      DATABASE_NAME: ${DATASOURCE_NAME}
+      DATABASE_USERNAME: ${DATASOURCE_USERNAME}
+      DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
+
+  service-fraud:
+    build: ./service-fraud
+    container_name: service-fraud
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+    env_file:
+      - .env
+    depends_on:
+      - zipkin
+      - postgres
+      - server-eureka
+    environment:
+      EUREKA_HOST: ${EUREKA_HOST}
+      ZIPKIN_HOST: ${ZIPKIN_HOST}
+      DATABASE_HOST: ${DATASOURCE_HOST}
+      DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
+      DATABASE_NAME: ${DATASOURCE_NAME}
+      DATABASE_USERNAME: ${DATASOURCE_USERNAME}
+      DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
+
+  service-gateway:
+    build: ./service-gateway
+    container_name: service-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    env_file:
+      - .env
+    depends_on:
+      - zipkin
+      - server-eureka
+    environment:
+      EUREKA_HOST: ${EUREKA_HOST}
+      ZIPKIN_HOST: ${ZIPKIN_HOST}
+
+  service-notification:
+    build: ./service-notification
+    container_name: service-notification
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+    env_file:
+      - .env
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+      - server-eureka
+    environment:
+      EUREKA_HOST: ${EUREKA_HOST}
+      ZIPKIN_HOST: ${ZIPKIN_HOST}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      DATABASE_HOST: ${DATASOURCE_HOST}
+      DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
+      DATABASE_NAME: ${DATASOURCE_NAME}
+      DATABASE_USERNAME: ${DATASOURCE_USERNAME}
+      DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
+
+  postgres:
+    image: postgres:15.1-alpine
+    restart: always
+    container_name: postgres
+    networks:
+      - app-network
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DATASOURCE_NAME}
+      POSTGRES_USER: ${DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${DATASOURCE_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./scripts/init-database.sql:/docker-entrypoint-initdb.d/init-database.sql
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:8.10
+    restart: always
+    container_name: pgadmin
+    networks:
+      - app-network
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
+    ports:
+      - "15432:8088"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+  zipkin:
+    image: openzipkin/zipkin:3.4
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:3.9.11-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - app-network

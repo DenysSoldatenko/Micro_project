@@ -4,10 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(
-  name = "service-fraud",
-  url = "http://localhost:8082"
-)
+@FeignClient("service-fraud")
 public interface FraudServiceClient {
 
   @GetMapping(path = "api/v1/fraud-status/{customerId}")

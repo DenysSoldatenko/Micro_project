@@ -1,9 +1,9 @@
 FROM openjdk:17-jdk-slim
 
-WORKDIR /service-customer
+WORKDIR /service-notification
 
 COPY build/libs/*.jar application.jar
 
-EXPOSE 8081
+EXPOSE 8083
 
 ENTRYPOINT ["java", "-jar", "application.jar"]

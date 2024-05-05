@@ -4,11 +4,10 @@ import com.example.servicecustomer.dtos.CustomerDto;
 import com.example.servicecustomer.entities.Customer;
 import com.example.servicecustomer.mappers.CustomerMapper;
 import com.example.servicecustomer.repositories.CustomerRepository;
+import lombok.AllArgsConstructor;
 import org.example.feignservice.fraud.FraudServiceClient;
 import org.example.feignservice.notification.NotificationRequest;
-import org.example.feignservice.notification.NotificationServiceClient;
 import org.example.serviceamqp.RabbitMqMessageProducer;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +19,6 @@ public class CustomerServiceImpl implements CustomerService {
 
   private final FraudServiceClient fraudServiceClient;
   private final RabbitMqMessageProducer rabbitMqMessageProducer;
-  private final NotificationServiceClient notificationServiceClient;
 
   @Override
   public void registerCustomer(CustomerDto request) {
@@ -34,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
       customer.getEmail(),
       String.format("Hi %s, welcome to the world of microservices!", customer.getFirstName())
     );
-    notificationServiceClient.sendNotification(notificationRequest);
+
     rabbitMqMessageProducer.publish(notificationRequest, "internal.exchange", "internal.notification.routing-key");
   }
 }

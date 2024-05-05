@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: optional:file:service-feign/.env[.properties]
+  cloud:
+    openfeign:
+      client:
+        config:
+          service-fraud: ${FRAUD_SERVICE_HOST}
+          service-notification: ${NOTIFICATION_SERVICE_HOST}
