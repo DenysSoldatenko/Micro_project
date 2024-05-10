@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 
 management:
   tracing:
@@ -12,12 +12,12 @@ management:
 
 spring:
   application:
-    name: service-customer
+    name: service-fraud
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt
   config:
-    import: optional:file:service-customer/.env[.properties]
+    import: optional:file:service-fraud/.env[.properties]
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST}:5432/${DATABASE_NAME}?currentSchema=${DATABASE_SCHEMA}
     username: ${DATABASE_USERNAME}
@@ -31,10 +31,6 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
-  rabbitmq:
-      addresses: ${RABBITMQ_HOST}:5672
-  profiles:
-    active: default
 
 eureka:
   client:

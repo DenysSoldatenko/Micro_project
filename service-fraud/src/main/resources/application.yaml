@@ -31,6 +31,8 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
+  profiles:
+    active: default
 
 eureka:
   client:

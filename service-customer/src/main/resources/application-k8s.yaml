@@ -32,9 +32,7 @@ spring:
     show-sql: true
     open-in-view: false
   rabbitmq:
-      addresses: ${RABBITMQ_HOST}:5672
-  profiles:
-    active: default
+    addresses: ${RABBITMQ_HOST}:5672
 
 eureka:
   client:
@@ -42,3 +40,4 @@ eureka:
       defaultZone: http://${EUREKA_HOST}:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+    enabled: false

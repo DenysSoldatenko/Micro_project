@@ -36,6 +36,7 @@ services:
       - rabbitmq
       - server-eureka
     environment:
+      SPRING_PROFILES_ACTIVE: ${DOCKER_ACTIVE_PROFILE}
       EUREKA_HOST: ${EUREKA_HOST}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
@@ -59,6 +60,7 @@ services:
       - postgres
       - server-eureka
     environment:
+      SPRING_PROFILES_ACTIVE: ${DOCKER_ACTIVE_PROFILE}
       EUREKA_HOST: ${EUREKA_HOST}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
@@ -98,6 +100,7 @@ services:
       - rabbitmq
       - server-eureka
     environment:
+      SPRING_PROFILES_ACTIVE: ${DOCKER_ACTIVE_PROFILE}
       EUREKA_HOST: ${EUREKA_HOST}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       RABBITMQ_HOST: ${RABBITMQ_HOST}

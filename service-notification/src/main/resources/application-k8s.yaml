@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8083
 
 management:
   tracing:
@@ -12,12 +12,12 @@ management:
 
 spring:
   application:
-    name: service-customer
+    name: service-notification
     version: 0.0.1-SNAPSHOT
   banner:
     location: application-banner.txt
   config:
-    import: optional:file:service-customer/.env[.properties]
+    import: optional:file:service-notification/.env[.properties]
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST}:5432/${DATABASE_NAME}?currentSchema=${DATABASE_SCHEMA}
     username: ${DATABASE_USERNAME}
@@ -32,9 +32,7 @@ spring:
     show-sql: true
     open-in-view: false
   rabbitmq:
-      addresses: ${RABBITMQ_HOST}:5672
-  profiles:
-    active: default
+    addresses: ${RABBITMQ_HOST}:5672
 
 eureka:
   client:
@@ -42,3 +40,12 @@ eureka:
       defaultZone: http://${EUREKA_HOST}:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+    enabled: false
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key

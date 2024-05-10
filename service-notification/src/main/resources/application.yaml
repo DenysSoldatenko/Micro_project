@@ -33,6 +33,8 @@ spring:
     open-in-view: false
   rabbitmq:
     addresses: ${RABBITMQ_HOST}:5672
+  profiles:
+    active: default
 
 eureka:
   client:
