@@ -9,20 +9,8 @@ volumes:
     driver: local
 
 services:
-  server-eureka:
-    image: densold/micro_project-server-eureka:latest
-    container_name: server-eureka
-    ports:
-      - "8761:8761"
-    networks:
-      - app-network
-    depends_on:
-      - zipkin
-    environment:
-      ZIPKIN_HOST: ${ZIPKIN_HOST}
-
   service-customer:
-    image: densold/micro_project-service-customer:latest
+    build: ./service-customer
     container_name: service-customer
     ports:
       - "8081:8081"
@@ -34,10 +22,8 @@ services:
       - zipkin
       - postgres
       - rabbitmq
-      - server-eureka
     environment:
-      SPRING_PROFILES_ACTIVE: ${DOCKER_ACTIVE_PROFILE}
-      EUREKA_HOST: ${EUREKA_HOST}
+      SPRING_PROFILES_ACTIVE: ${K8S_ACTIVE_PROFILE}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
@@ -47,7 +33,7 @@ services:
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
 
   service-fraud:
-    image: densold/micro_project-service-fraud:latest
+    build: ./service-fraud
     container_name: service-fraud
     ports:
       - "8082:8082"
@@ -58,10 +44,8 @@ services:
     depends_on:
       - zipkin
       - postgres
-      - server-eureka
     environment:
-      SPRING_PROFILES_ACTIVE: ${DOCKER_ACTIVE_PROFILE}
-      EUREKA_HOST: ${EUREKA_HOST}
+      SPRING_PROFILES_ACTIVE: ${K8S_ACTIVE_PROFILE}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
       DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
@@ -69,24 +53,8 @@ services:
       DATABASE_USERNAME: ${DATASOURCE_USERNAME}
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
 
-  service-gateway:
-    image: densold/micro_project-service-gateway:latest
-    container_name: service-gateway
-    ports:
-      - "8080:8080"
-    networks:
-      - app-network
-    env_file:
-      - .env
-    depends_on:
-      - zipkin
-      - server-eureka
-    environment:
-      EUREKA_HOST: ${EUREKA_HOST}
-      ZIPKIN_HOST: ${ZIPKIN_HOST}
-
   service-notification:
-    image: densold/micro_project-service-notification:latest
+    build: ./service-notification
     container_name: service-notification
     ports:
       - "8083:8083"
@@ -98,10 +66,8 @@ services:
       - zipkin
       - postgres
       - rabbitmq
-      - server-eureka
     environment:
-      SPRING_PROFILES_ACTIVE: ${DOCKER_ACTIVE_PROFILE}
-      EUREKA_HOST: ${EUREKA_HOST}
+      SPRING_PROFILES_ACTIVE: ${K8S_ACTIVE_PROFILE}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
