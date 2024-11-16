@@ -10,6 +10,10 @@ import org.example.feignservice.notification.NotificationRequest;
 import org.example.serviceamqp.RabbitMqMessageProducer;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the {@link CustomerService} interface.
+ * Handles customer registration, fraud status check, and notification publishing.
+ */
 @Service
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
@@ -28,11 +32,15 @@ public class CustomerServiceImpl implements CustomerService {
     fraudServiceClient.checkFraudStatus(customer.getId());
 
     NotificationRequest notificationRequest = new NotificationRequest(
-      customer.getId(),
-      customer.getEmail(),
-      String.format("Hi %s, welcome to the world of microservices!", customer.getFirstName())
+        customer.getId(),
+        customer.getEmail(),
+        String.format("Hi %s, welcome to the world of microservices!", customer.getFirstName())
     );
 
-    rabbitMqMessageProducer.publish(notificationRequest, "internal.exchange", "internal.notification.routing-key");
+    rabbitMqMessageProducer.publish(
+        notificationRequest,
+        "internal.exchange",
+        "internal.notification.routing-key"
+    );
   }
 }

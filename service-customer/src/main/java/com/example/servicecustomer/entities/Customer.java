@@ -12,7 +12,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Entity representing a customer.
+ */
 @Data
 @Entity
 @Builder
