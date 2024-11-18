@@ -10,7 +10,7 @@ volumes:
 
 services:
   service-customer:
-    build: ./service-customer
+    image: densold/micro_project-service-customer:latest
     container_name: service-customer
     ports:
       - "8081:8081"
@@ -33,7 +33,7 @@ services:
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
 
   service-fraud:
-    build: ./service-fraud
+    image: densold/micro_project-service-fraud:latest
     container_name: service-fraud
     ports:
       - "8082:8082"
@@ -54,7 +54,7 @@ services:
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
 
   service-notification:
-    build: ./service-notification
+    image: densold/micro_project-service-notification:latest
     container_name: service-notification
     ports:
       - "8083:8083"
