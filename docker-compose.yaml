@@ -10,7 +10,7 @@ volumes:
 
 services:
   service-customer:
-    image: densold/micro_project-service-customer:latest
+    build: ./service-customer
     container_name: service-customer
     ports:
       - "8081:8081"
@@ -27,13 +27,12 @@ services:
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
-      DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
       DATABASE_NAME: ${DATASOURCE_NAME}
       DATABASE_USERNAME: ${DATASOURCE_USERNAME}
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
 
   service-fraud:
-    image: densold/micro_project-service-fraud:latest
+    build: ./service-fraud
     container_name: service-fraud
     ports:
       - "8082:8082"
@@ -48,13 +47,12 @@ services:
       SPRING_PROFILES_ACTIVE: ${K8S_ACTIVE_PROFILE}
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
-      DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
       DATABASE_NAME: ${DATASOURCE_NAME}
       DATABASE_USERNAME: ${DATASOURCE_USERNAME}
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
 
   service-notification:
-    image: densold/micro_project-service-notification:latest
+    build: ./service-notification
     container_name: service-notification
     ports:
       - "8083:8083"
@@ -71,7 +69,6 @@ services:
       ZIPKIN_HOST: ${ZIPKIN_HOST}
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       DATABASE_HOST: ${DATASOURCE_HOST}
-      DATABASE_SCHEMA: ${DATASOURCE_SCHEMA}
       DATABASE_NAME: ${DATASOURCE_NAME}
       DATABASE_USERNAME: ${DATASOURCE_USERNAME}
       DATABASE_PASSWORD: ${DATASOURCE_PASSWORD}
@@ -91,7 +88,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./scripts/init-database.sql:/docker-entrypoint-initdb.d/init-database.sql
       - postgres_data:/var/lib/postgresql/data
 
   pgadmin:
