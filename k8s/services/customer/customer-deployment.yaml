@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-customer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: service-customer
+      labels:
+        app: service-customer
+    spec:
+      containers:
+        - name: service-customer
+          image: densold/micro_project-service-customer:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: customer-config
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: service-customer

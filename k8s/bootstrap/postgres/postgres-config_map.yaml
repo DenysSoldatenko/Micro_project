@@ -15,4 +15,4 @@ metadata:
   name: postgres-initdb
 data:
   init.sql: |
-    CREATE DATABASE IF NOT EXISTS example_database;
+    CREATE DATABASE example_database;
