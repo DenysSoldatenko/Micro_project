@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-fraud
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: service-fraud
+      labels:
+        app: service-fraud
+    spec:
+      containers:
+        - name: service-fraud
+          image: densold/micro_project-service-fraud:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: fraud-config
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: service-fraud
