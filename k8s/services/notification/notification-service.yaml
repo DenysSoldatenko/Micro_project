@@ -6,6 +6,6 @@ spec:
   selector:
     app: service-notification
   ports:
-    - port: 8081
-      targetPort: 8081
-  type: LoadBalancer
+    - port: 8083
+      targetPort: 8083
+  type: NodePort

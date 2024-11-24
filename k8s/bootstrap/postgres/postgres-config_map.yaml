@@ -6,13 +6,3 @@ data:
   POSTGRES_DB: "example_database"
   POSTGRES_USER: "postgres"
   POSTGRES_PASSWORD: "postgres"
-
----
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-initdb
-data:
-  init.sql: |
-    CREATE DATABASE example_database;

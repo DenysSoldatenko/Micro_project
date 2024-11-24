@@ -9,4 +9,3 @@ data:
   DATABASE_PASSWORD: "postgres"
   DATABASE_HOST: "postgres"
   ZIPKIN_HOST: "zipkin"
-  RABBITMQ_HOST: "rabbitmq"
